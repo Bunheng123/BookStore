@@ -1,0 +1,16 @@
+{
+  "customer_id": 1,
+  "total_amount": 31.49,
+  "items": [
+    {
+      "book_id": 1,
+      "quantity": 1,
+      "price": 16.99
+    },
+    {
+      "book_id": 2,
+      "quantity": 1,
+      "price": 14.5
+    }
+  ]
+}
