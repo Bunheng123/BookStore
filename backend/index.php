@@ -16,8 +16,8 @@ use App\Controllers\OrderController;
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
-// Enable CORS
-header('Access-Control-Allow-Origin: http://localhost:5173');
+// Enable CORS - Allow localhost on any port during development
+header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization');
 header('Access-Control-Allow-Credentials: true');
@@ -38,6 +38,9 @@ $router->get('/api/books/{id}', [new BookController(), 'get']);
 $router->post('/api/books', [new BookController(), 'save']);
 $router->get('/api/authors', [new BookController(), 'indexAuthors']);
 $router->get('/api/categories', [new BookController(), 'indexCategories']);
+$router->post('/api/categories', [new BookController(), 'saveCategory']);
+$router->put('/api/categories/{id}', [new BookController(), 'updateCategory']);
+$router->delete('/api/categories/{id}', [new BookController(), 'deleteCategory']);
 
 //--------------------Customers--------------------
 $router->get('/api/customers', [new CustomerController(), 'index']);

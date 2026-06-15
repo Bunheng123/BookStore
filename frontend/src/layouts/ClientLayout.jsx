@@ -64,8 +64,15 @@ function Navbar({ showProfile, setShowProfile }) {
 
         {/* Nav links */}
         <nav className="hidden md:flex items-center gap-8">
-          {["Home", "Browse", "Cart"].map((item) => {
-            const path = item === "Home" ? "/" : `/${item.toLowerCase()}`;
+          {["Home", "Browse", "About Us", "Contact", "Cart"].map((item) => {
+            const path =
+              item === "Home"
+                ? "/"
+                : item === "About Us"
+                  ? "/about"
+                  : item === "Contact"
+                    ? "/contact"
+                    : `/${item.toLowerCase()}`;
             const active = location.pathname === path;
             return (
               <button
@@ -219,54 +226,285 @@ export default function ClientLayout({ children }) {
 
       {/* Footer */}
       <footer style={{ background: ESPRESSO }}>
-        <div
-          style={{
-            backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(212,175,95,0.04) 39px, rgba(212,175,95,0.04) 40px)`,
-          }}
-        >
-          <div className="max-w-6xl mx-auto px-8 py-12 flex flex-col md:flex-row items-center justify-between gap-6">
+        {/* Main Footer Content */}
+        <div className="max-w-6xl mx-auto px-8 py-16">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+            {/* Company Info */}
             <div>
               <p
-                className="text-[0.6rem] tracking-[0.35em] uppercase mb-1"
+                className="text-[0.6rem] tracking-[0.35em] uppercase mb-2"
                 style={{ color: GOLD }}
               >
                 Folio & Ink
               </p>
               <p
-                className="text-lg italic"
+                className="text-lg italic mb-4"
                 style={{ color: PARCHMENT, fontFamily: "Georgia, serif" }}
               >
                 Bookstore
               </p>
+              <p
+                className="text-xs leading-relaxed"
+                style={{ color: "rgba(245,240,232,0.6)" }}
+              >
+                Discover your next favorite book from our curated collection of
+                timeless classics and contemporary bestsellers.
+              </p>
+              {/* Social Links */}
+              <div className="flex gap-4 mt-6">
+                {[
+                  { icon: "f", label: "Facebook" },
+                  { icon: "𝕏", label: "Twitter" },
+                  { icon: "in", label: "Instagram" },
+                ].map((social) => (
+                  <a
+                    key={social.label}
+                    href="#"
+                    className="w-8 h-8 flex items-center justify-center rounded border transition-all duration-300 text-xs font-bold"
+                    style={{
+                      borderColor: GOLD,
+                      color: "rgba(245,240,232,0.6)",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = GOLD;
+                      e.currentTarget.style.color = ESPRESSO;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = "transparent";
+                      e.currentTarget.style.color = "rgba(245,240,232,0.6)";
+                    }}
+                    title={social.label}
+                  >
+                    {social.icon}
+                  </a>
+                ))}
+              </div>
             </div>
 
-            <div className="flex gap-8">
-              {[
-                { label: "Home", path: "/" },
-                { label: "Browse", path: "/browse" },
-                { label: "Cart", path: "/cart" },
-              ].map((item) => (
-                <a
-                  key={item.path}
-                  href={item.path}
-                  className="text-xs tracking-[0.15em] uppercase transition-colors duration-200 no-underline"
-                  style={{ color: "rgba(245,240,232,0.35)" }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = GOLD)}
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.color = "rgba(245,240,232,0.35)")
-                  }
-                >
-                  {item.label}
-                </a>
-              ))}
+            {/* Quick Links */}
+            <div>
+              <p
+                className="text-xs tracking-[0.2em] uppercase font-semibold mb-6"
+                style={{ color: GOLD }}
+              >
+                Quick Links
+              </p>
+              <ul className="space-y-3">
+                {[
+                  { label: "Home", path: "/" },
+                  { label: "Browse Books", path: "/browse" },
+                  { label: "About Us", path: "/about" },
+                  { label: "Contact", path: "/contact" },
+                ].map((link) => (
+                  <li key={link.path}>
+                    <button
+                      onClick={() => navigate(link.path)}
+                      className="text-xs transition-colors duration-200 cursor-pointer bg-transparent border-none p-0"
+                      style={{ color: "rgba(245,240,232,0.6)" }}
+                      onMouseEnter={(e) => (e.currentTarget.style.color = GOLD)}
+                      onMouseLeave={(e) =>
+                        (e.currentTarget.style.color = "rgba(245,240,232,0.6)")
+                      }
+                    >
+                      {link.label}
+                    </button>
+                  </li>
+                ))}
+              </ul>
             </div>
 
-            <p
-              className="text-xs italic"
-              style={{ color: "rgba(245,240,232,0.2)" }}
-            >
-              Est. 2024 · Folio & Ink Bookstore
+            {/* Customer Service */}
+            <div>
+              <p
+                className="text-xs tracking-[0.2em] uppercase font-semibold mb-6"
+                style={{ color: GOLD }}
+              >
+                Customer Service
+              </p>
+              <ul className="space-y-3">
+                {[
+                  "Shipping Info",
+                  "Returns & Exchanges",
+                  "FAQ",
+                  "Privacy Policy",
+                  "Terms & Conditions",
+                ].map((item) => (
+                  <li key={item}>
+                    <button
+                      className="text-xs transition-colors duration-200 cursor-pointer bg-transparent border-none p-0"
+                      style={{ color: "rgba(245,240,232,0.6)" }}
+                      onMouseEnter={(e) => (e.currentTarget.style.color = GOLD)}
+                      onMouseLeave={(e) =>
+                        (e.currentTarget.style.color = "rgba(245,240,232,0.6)")
+                      }
+                    >
+                      {item}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Contact Info */}
+            <div>
+              <p
+                className="text-xs tracking-[0.2em] uppercase font-semibold mb-6"
+                style={{ color: GOLD }}
+              >
+                Get in Touch
+              </p>
+              <div
+                className="space-y-4 text-xs"
+                style={{ color: "rgba(245,240,232,0.6)" }}
+              >
+                <div>
+                  <p className="font-semibold mb-1" style={{ color: GOLD }}>
+                    Email
+                  </p>
+                  <a
+                    href="mailto:info@folioink.com"
+                    className="transition-colors duration-200 no-underline"
+                    style={{ color: "rgba(245,240,232,0.6)" }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = GOLD)}
+                    onMouseLeave={(e) =>
+                      (e.currentTarget.style.color = "rgba(245,240,232,0.6)")
+                    }
+                  >
+                    info@folioink.com
+                  </a>
+                </div>
+                <div>
+                  <p className="font-semibold mb-1" style={{ color: GOLD }}>
+                    Phone
+                  </p>
+                  <a
+                    href="tel:+1234567890"
+                    className="transition-colors duration-200 no-underline"
+                    style={{ color: "rgba(245,240,232,0.6)" }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = GOLD)}
+                    onMouseLeave={(e) =>
+                      (e.currentTarget.style.color = "rgba(245,240,232,0.6)")
+                    }
+                  >
+                    +1 (234) 567-890
+                  </a>
+                </div>
+                <div>
+                  <p className="font-semibold mb-1" style={{ color: GOLD }}>
+                    Address
+                  </p>
+                  <p>
+                    123 Book Street
+                    <br />
+                    Literary City, LC 12345
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Divider */}
+          <div
+            className="h-px mb-6"
+            style={{ background: "rgba(212,175,95,0.15)" }}
+          />
+
+          {/* Newsletter */}
+          <div className="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div>
+              <p
+                className="text-sm font-semibold mb-2"
+                style={{ color: PARCHMENT }}
+              >
+                Subscribe to Our Newsletter
+              </p>
+              <p className="text-xs" style={{ color: "rgba(245,240,232,0.5)" }}>
+                Get book recommendations and exclusive offers delivered to your
+                inbox
+              </p>
+            </div>
+            <div className="flex gap-2">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="px-4 py-2 text-sm bg-white/10 border outline-none flex-1 md:flex-none"
+                style={{
+                  borderColor: GOLD,
+                  color: PARCHMENT,
+                }}
+                onFocus={(e) =>
+                  (e.currentTarget.style.boxShadow = `0 0 0 1px ${GOLD}`)
+                }
+                onBlur={(e) => (e.currentTarget.style.boxShadow = "none")}
+              />
+              <button
+                className="px-6 py-2 text-xs font-semibold tracking-[0.1em] uppercase transition-all duration-300 cursor-pointer border-none"
+                style={{
+                  background: GOLD,
+                  color: ESPRESSO,
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "transparent";
+                  e.currentTarget.style.borderColor = GOLD;
+                  e.currentTarget.style.color = GOLD;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = GOLD;
+                  e.currentTarget.style.color = ESPRESSO;
+                }}
+              >
+                Subscribe
+              </button>
+            </div>
+          </div>
+
+          {/* Bottom Bar */}
+          <div
+            className="h-px mb-6"
+            style={{ background: "rgba(212,175,95,0.15)" }}
+          />
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
+            <p style={{ color: "rgba(245,240,232,0.4)" }}>
+              © 2024 Folio & Ink Bookstore. All rights reserved.
             </p>
+            <div
+              className="flex gap-6"
+              style={{ color: "rgba(245,240,232,0.4)" }}
+            >
+              <a
+                href="#"
+                className="no-underline transition-colors duration-200"
+                style={{ color: "rgba(245,240,232,0.4)" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = GOLD)}
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.color = "rgba(245,240,232,0.4)")
+                }
+              >
+                Privacy
+              </a>
+              <a
+                href="#"
+                className="no-underline transition-colors duration-200"
+                style={{ color: "rgba(245,240,232,0.4)" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = GOLD)}
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.color = "rgba(245,240,232,0.4)")
+                }
+              >
+                Terms
+              </a>
+              <a
+                href="#"
+                className="no-underline transition-colors duration-200"
+                style={{ color: "rgba(245,240,232,0.4)" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = GOLD)}
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.color = "rgba(245,240,232,0.4)")
+                }
+              >
+                Sitemap
+              </a>
+            </div>
           </div>
         </div>
       </footer>

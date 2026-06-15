@@ -21,14 +21,14 @@ class OrderRepository {
 
             // 1. Insert Order
             $sqlOrder = "INSERT INTO orders (customer_id, total, status) 
-                         VALUES (:customer_id, :total, :status) RETURNING id";
+                         VALUES (:customer_id, :total, :status)";
             $psOrder = $this->conn->prepare($sqlOrder);
             $psOrder->bindValue(':customer_id', $order->getCustomerId(), PDO::PARAM_INT);
             $psOrder->bindValue(':total', $order->getTotalAmount());
             $psOrder->bindValue(':status', $order->getStatus(), PDO::PARAM_STR);
             $psOrder->execute();
             
-            $orderId = $psOrder->fetch(PDO::FETCH_ASSOC)['id'];
+            $orderId = (int) $this->conn->lastInsertId();
 
             // 2. Insert Items and Update Stock
             foreach ($items as $item) {
@@ -65,7 +65,7 @@ class OrderRepository {
 
     public function getAllOrders(): array {
         try {
-            $sql = "SELECT o.*, (c.first_name || ' ' || c.last_name) as customer_name 
+            $sql = "SELECT o.*, CONCAT(c.first_name, ' ', c.last_name) as customer_name 
                     FROM orders o 
                     JOIN customers c ON o.customer_id = c.id 
                     ORDER BY o.created_at DESC";

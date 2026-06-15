@@ -5,6 +5,7 @@ import ProfileModal from "../components/ProfileModal";
 const NAV_ITEMS = [
   { label: "Dashboard", path: "/admin/dashboard", icon: "▦" },
   { label: "Books", path: "/admin/books", icon: "📚" },
+  { label: "Categories", path: "/admin/categories", icon: "🏷️" },
   { label: "Orders", path: "/admin/orders", icon: "📦" },
   { label: "Staff", path: "/admin/staff", icon: "👔" },
 ];

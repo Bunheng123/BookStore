@@ -676,7 +676,7 @@ export default function BookDetail() {
                 renderItem={(b) => (
                   <div
                     className="group cursor-pointer"
-                    onClick={() => navigate(`/book/${b.id}`)}
+                    onClick={() => navigate(`/books/${b.id}`)}
                     style={{ height: "100%" }}
                   >
                     <div
@@ -709,7 +709,7 @@ export default function BookDetail() {
                       {b.title}
                     </h3>
                     <p className="text-xs mb-2" style={{ color: BROWN_MID }}>
-                      {b.author}
+                      {b.author_name || "Unknown Author"}
                     </p>
                     <p className="text-sm font-bold" style={{ color: GOLD }}>
                       ${parseFloat(b.price).toFixed(2)}

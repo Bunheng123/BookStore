@@ -7,6 +7,8 @@ import Browse from "../pages/client/Browse";
 import BookDetail from "../pages/client/BookDetail";
 import Cart from "../pages/client/Cart";
 import Checkout from "../pages/client/Checkout";
+import About from "../pages/client/About";
+import Contact from "../pages/client/Contact";
 
 function RequireCustomer({ children }) {
   const token = localStorage.getItem("auth_token");
@@ -27,6 +29,8 @@ export default function ClientRoutes() {
         <Route path="/" element={<Home />} />
         <Route path="/browse" element={<Browse />} />
         <Route path="/books/:id" element={<BookDetail />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
         <Route
           path="/cart"
           element={

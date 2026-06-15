@@ -110,6 +110,43 @@ export default function ManageBooks() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validate required fields
+    if (
+      !formData.title ||
+      !formData.author_id ||
+      !formData.category_id ||
+      formData.price === "" ||
+      formData.stock === "" ||
+      !formData.published_date
+    ) {
+      alert("Please fill in all required fields.");
+      return;
+    }
+
+    // Validate numeric fields
+    const price = parseFloat(formData.price);
+    const stock = parseInt(formData.stock, 10);
+    const author_id = parseInt(formData.author_id, 10);
+    const category_id = parseInt(formData.category_id, 10);
+
+    if (isNaN(price) || price <= 0) {
+      alert("Price must be a valid positive number.");
+      return;
+    }
+    if (isNaN(stock) || stock < 0) {
+      alert("Stock must be a valid non-negative number.");
+      return;
+    }
+    if (isNaN(author_id) || author_id <= 0) {
+      alert("Please select a valid author.");
+      return;
+    }
+    if (isNaN(category_id) || category_id <= 0) {
+      alert("Please select a valid category.");
+      return;
+    }
+
     const method = editingBook ? "PUT" : "POST";
     const url = editingBook
       ? getApiUrl(`api/books/${editingBook.id}`)
@@ -118,10 +155,10 @@ export default function ManageBooks() {
     // Ensure numeric values are correct types
     const submissionData = {
       ...formData,
-      price: parseFloat(formData.price),
-      stock: parseInt(formData.stock),
-      author_id: parseInt(formData.author_id),
-      category_id: parseInt(formData.category_id),
+      price,
+      stock,
+      author_id,
+      category_id,
     };
 
     try {

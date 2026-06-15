@@ -8,9 +8,9 @@ class DatabaseConnection {
     private static ?PDO $instance = null;
     public static function getInstance(): PDO{ // create a connection to the database
 
-        // if will work only if there is no connection to database 
+        // it will work only if there is no connection to database 
         if(self::$instance === null){  
-            $dsn = sprintf( // use to store data source name
+            $dsn = sprintf(
                 "%s:host=%s;port=%s;dbname=%s",
                 $_ENV['DB_DRIVER'],
                 $_ENV['DB_HOST'],
@@ -18,7 +18,11 @@ class DatabaseConnection {
                 $_ENV['DB_NAME']
             );
 
-            try { // this try will use the data from dsn+user+pw and connect to database
+            if (strtolower($_ENV['DB_DRIVER']) === 'mysql') {
+                $dsn .= ';charset=utf8mb4';
+            }
+
+            try {
                 self::$instance = new PDO($dsn,$_ENV['DB_USER'],$_ENV['DB_PASS'],
                     [
                         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,

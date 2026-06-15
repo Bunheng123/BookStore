@@ -4,6 +4,7 @@ import Dashboard from "../pages/admin/Dashboard";
 import ManageBooks from "../pages/admin/ManageBooks";
 import ManageOrders from "../pages/admin/ManageOrders";
 import ManageStaff from "../pages/admin/ManageStaff";
+import ManageCategories from "../pages/admin/ManageCategories";
 
 function RequireAdmin({ children }) {
   const token = localStorage.getItem("auth_token");
@@ -24,6 +25,7 @@ export default function AdminRoutes() {
         <Routes>
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="books" element={<ManageBooks />} />
+          <Route path="categories" element={<ManageCategories />} />
           <Route path="orders" element={<ManageOrders />} />
           <Route path="staff" element={<ManageStaff />} />
           <Route path="*" element={<Navigate to="dashboard" replace />} />
